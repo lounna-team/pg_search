@@ -93,7 +93,7 @@ module PgSearch
       config.features
         .reject { |_feature_name, feature_options| feature_options && feature_options[:sort_only] }
         .map { |feature_name, _feature_options| feature_for(feature_name).conditions }
-        .inject { |accumulator, expression| Arel::Nodes::Or.new(accumulator, expression) }
+        .inject { |accumulator, expression| Arel::Nodes::Or.new([accumulator, expression]) }
     end
 
     def order_within_rank
